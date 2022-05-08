@@ -17,7 +17,7 @@ class RecipeForm(FlaskForm):
     title = StringField(label='Title')
     author = StringField(label='Author')
     origin_story = TextAreaField(label='Origin Story')
-    category = SelectField(label='Category', choices=get_choices)
+    category = SelectField(label='Category', choices=get_choices())
     image = StringField(label='Image URL')
     serving_size = IntegerField(label='Serves')
     ingredients = TextAreaField(label='Ingredients')

@@ -7,5 +7,12 @@
 
 <h2>All Collections</h2>
 
+{% for collection in collections %}
+<div class="collection">
+    <a href="/collection/{{ collection.id }}">{{ collection.title }}</a> - 
+    {{ collection.recipes|length }} recipes
+    <p>{{ collection.description }}</p>
+</div>
+{% endfor %}
 
 {% endblock %}

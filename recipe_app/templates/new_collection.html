@@ -1,0 +1,13 @@
+{% from '/partials/_renderfield.html' import renderfield %}
+
+{% extends 'partials/form.html' %}
+{% block form %}
+
+            {{ form.csrf_token }}
+            {{ renderfield(form.title) }}
+            {{ renderfield(form.description) }}
+            {% if error %}
+                <div class= 'text-dangerous'>{{ error }}</div>
+            {% endif %}
+
+{% endblock %}
