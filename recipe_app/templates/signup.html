@@ -1,0 +1,20 @@
+{% from '/partials/_renderfield.html' import renderfield %}
+
+{% extends 'home.html' %}
+{% block content %}
+
+<form action="/signup" method="POST">
+
+    {{ form.csrf_token }}
+    {{ renderfield(form.first_name) }}
+    {{ renderfield(form.last_name) }}
+    {{ renderfield(form.username) }}
+    {{ renderfield(form.password) }}
+    {% if error %}
+        <div class= 'text-dangerous'>{{ error }}</div>
+    {% endif %}
+
+    {{ form.submit }}
+</form>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from sqlalchemy import table
 from sqlalchemy_utils import URLType
 from flask_login import UserMixin
 from recipe_app.extensions import db
-#from recipe_app.utils import FormEnum
+from recipe_app.utils import FormEnum
 
 class RecipeCategory(FormEnum):
     """Categories of grocery items."""
@@ -27,12 +27,16 @@ class Recipe(db.Model):
     shared_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     sharer = db.relationship('User')
 
+recipe_collections = db.Table('recipe_collection',
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+    db.Column('collection_id', db.Integer, db.ForeignKey('collection.id'))
+)
 
 class Collection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(500), nullable=False)
-    recipes = db.relationship('Recipes', secondary='recipe_collection', back_populates='collections')
+    recipes = db.relationship('Recipe', secondary='recipe_collection', back_populates='collections')
     curated_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     curator = db.relationship('User')
     
@@ -43,8 +47,6 @@ class User(UserMixin, db.Model):
     password = db.Column (db.String(20), nullable=False)
     first_name = db.Column (db.String(20), nullable=False)
     last_name = db.Column (db.String(20), nullable=False)
-    recipes = db.relationship('recipe', secondary='user_recipe', back_populated='curated_by') 
-    collections = db.relationship('collection', secondary='user_collection', back_populates='author')
 
 # user_recipes = db.Table('user_recipe',
 #     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -55,8 +57,3 @@ class User(UserMixin, db.Model):
 #     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
 #     db.Column('collection_id', db.Integer, db.ForeignKey('collection.id'))
 # )
-
-recipe_collections = db.Table('recipe_collection',
-    db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
-    db.Column('collection_id', db.Integer, db.ForeignKey('collection.id'))
-)

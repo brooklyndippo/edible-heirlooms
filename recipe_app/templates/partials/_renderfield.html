@@ -1,0 +1,17 @@
+{% macro renderfield(field) %}
+
+<div class="row">
+<div class="col-4 my-auto">
+{{ field.label }}
+</div>
+<div class="col my-auto">
+{{ field(**kwargs)|safe }}
+</div>
+<ul>
+    {% for error in field.errors %}
+    <li style='color:red;'>{{ error }}</li>
+    {% endfor %}
+</ul>
+</div>
+
+{% endmacro %}
