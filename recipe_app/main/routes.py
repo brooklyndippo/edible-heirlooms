@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
-from datetime import date, datetime
 from recipe_app.models import User, Recipe, Collection
 from recipe_app.main.forms import RecipeForm, CollectionForm
 from recipe_app.extensions import db
