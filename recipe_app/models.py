@@ -19,6 +19,7 @@ class Recipe(db.Model):
     title = db.Column(db.String(80), nullable=False)
     author = db.Column(db.String(100), nullable=False)
     origin_story = db.Column(db.String(1000), nullable=False)
+    image = db.Column(db.String(200))
     category = db.Column(db.Enum(RecipeCategory), default=RecipeCategory.OTHER)
     serving_size = db.Column(db.String(200), nullable=False)
     ingredients = db.Column(db.String(500), nullable=False)
