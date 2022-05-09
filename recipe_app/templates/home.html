@@ -3,7 +3,7 @@
 
 <h1 id="title">Edible Heirlooms</h1>
 
-<p><em>The best place to track prices and find the hottest deals!</em></p>
+<p><em>Heirloom cooking is the art of preserving your favorite family memories through meals that are passed down generation after generation. Digitize your family recipes with Edible Heirlooms so you can share with your relatives near and far for centuries to come. </em></p>
 
 <h2>All Collections</h2>
 
@@ -12,6 +12,17 @@
     <a href="/collection/{{ collection.id }}">{{ collection.title }}</a> - 
     {{ collection.recipes|length }} recipes
     <p>{{ collection.description }}</p>
+</div>
+{% endfor %}
+
+<h2>All Recipes</h2>
+
+{% for recipe in recipes %}
+<div class="recipe-details">
+    <a href="/recipe/{{ recipe.id }}"><img src="{{ recipe.image }}" alt="{{ recipe.title }}" width="200px">
+    <p><strong>{{ recipe.title }}</strong></p></a>
+    <p><strong>Author: {{ recipe.author }}</strong></p>
+    <p>Category: {{ recipe.category }}</p>
 </div>
 {% endfor %}
 

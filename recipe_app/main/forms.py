@@ -22,3 +22,4 @@ class RecipeForm(FlaskForm):
     serving_size = IntegerField(label='Serves')
     ingredients = TextAreaField(label='Ingredients')
     preparation = TextAreaField(label='Preparation')
+

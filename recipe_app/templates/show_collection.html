@@ -1,0 +1,36 @@
+{% from '/partials/_renderfield.html' import renderfield %}
+
+{% extends 'partials/form.html' %}
+{% block detail %}
+
+<h1>Collection - {{ collection.title }}</h1>
+
+<p><strong>Curated by: {{ collection.curator.first_name }} {{ collection.curator.last_name }}</strong></p>
+<p><strong>Description:</strong> {{ collection.description }}</p>
+
+<h2>Recipes</h2>
+
+<a href="/collection/{{collection.id}}/new_recipe"> Add A Recipe</a>
+
+<div class="recipes">
+    {% for recipe in collection.recipes %}
+    <div class="recipe-details">
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" width="200px">
+        <p><strong><a href="/recipe/{{recipe.id}}">{{ recipe.title }}</a></strong></p></a>
+        <p><strong>Author: {{ recipe.author }}</strong></p>
+        <p>Category: {{ recipe.category }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+{% block form %}
+
+    {{ form.csrf_token }}
+    {{ renderfield(form.title) }}
+    {{ renderfield(form.description) }}
+    {% if error %}
+        <div class= 'text-dangerous'>{{ error }}</div>
+    {% endif %}
+
+{% endblock %}

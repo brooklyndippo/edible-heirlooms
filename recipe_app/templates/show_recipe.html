@@ -1,0 +1,48 @@
+{% from '/partials/_renderfield.html' import renderfield %}
+
+{% extends 'partials/form.html' %}
+{% block detail %}
+
+<h1>Recipe - {{ recipe.title }}</h1>
+
+<form method="POST" action="/add_to_collection/{{recipe.id}}">
+    <label for="cars">Pin recipe to a collection:</label>
+
+    <select name="collection" id="collection">
+        {% for collection in collections %}
+        <option value="{{collection.id}}">{{collection.title}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Pin">
+</form>
+
+<p><strong>Author: {{ recipe.author }}</strong></p>
+<p><strong>Origin Story:</strong> <em>{{ recipe.origin_story }}</em></p>
+
+<img src="{{ recipe.image }}" alt="{{ recipe.title }}" width="500px">
+<p>Serves {{recipe.serving_size}}</p>
+
+<h3>Ingredients</h3>
+<p>{{recipe.ingredients}}</p>
+
+<h3>Preparation</h3>
+<p>{{recipe.preparation}}</p>
+
+{% endblock %}
+{% block form %}
+
+
+{{ form.csrf_token }}
+{{ renderfield(form.title) }}
+{{ renderfield(form.author) }}
+{{ renderfield(form.category) }}
+{{ renderfield(form.origin_story) }}
+{{ renderfield(form.image) }}
+{{ renderfield(form.serving_size) }}
+{{ renderfield(form.ingredients) }}
+{{ renderfield(form.preparation) }}
+    {% if error %}
+        <div class= 'text-dangerous'>{{ error }}</div>
+    {% endif %}
+
+{% endblock %}
