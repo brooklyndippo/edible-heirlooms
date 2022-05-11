@@ -2,7 +2,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, flash
 from recipe_app.models import User, Recipe, Collection
 from recipe_app.main.forms import RecipeForm, CollectionForm
 from recipe_app.extensions import db
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 main = Blueprint('main', __name__)
 
@@ -16,6 +16,7 @@ def homepage():
 # ======== COLLECTIONS ========= NEW/CREATE =========
 
 @main.route('/new_collection', methods=['GET', 'POST'])
+@login_required
 def new_collection():
     form = CollectionForm()
 
@@ -53,6 +54,7 @@ def show_collection(collection_id):
 
 # ======== ADD RECIPE FROM COLLECTION ===========
 @main.route('/collection/<collection_id>/new_recipe', methods=['GET', 'POST'])
+@login_required
 def new_recipe_from_collection(collection_id):
     
     collection = Collection.query.get(collection_id)
@@ -85,6 +87,7 @@ def new_recipe_from_collection(collection_id):
 # ======== RECIPES ========= NEW/CREATE =========
 
 @main.route('/new_recipe', methods=['GET', 'POST'])
+@login_required
 def new_recipe():
     
     form = RecipeForm()
